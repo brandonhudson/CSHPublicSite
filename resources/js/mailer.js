@@ -29,7 +29,6 @@
         
            success: function(data)
            {
-             //console.log("OKAY!"); //debug 
                alertify.success("Message Sent!").closeLogOnClick(true).delay(4000);
                
                
@@ -40,7 +39,6 @@
                
            },
             complete: function(data){
-                //console.log("Complete!");//debug
                 $('#mailerForm')[0].reset();
                 grecaptcha.reset();
                 

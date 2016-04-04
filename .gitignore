@@ -16,6 +16,7 @@ local.properties
 .settings/
 .loadpath
 resources/php/key.php
+potential_photos/
 
 # External tool builders
 .externalToolBuilders/
@@ -29,6 +30,7 @@ resources/php/key.php
 # PDT-specific
 .buildpath
 
+key.php
 
 #################
 ## Visual Studio
