@@ -31,14 +31,17 @@ $options = array(
         'content' => http_build_query($data)
     )
 );
+
 $context  = stream_context_create($options);
-$result = file_get_contents($url, false, $context);
+$result = file_get_contents($url, FALSE, $context);
 
+$result = json_decode($result,true);
 
-$result = json_decode($result);
-
-if ($result != null && $result['success'] == true) {
+if (isset($result) && $result['success'] == "true") {
     //Send email here
+    
+    //die(http_response_code(502)); //debug
+    
     switch ($position) {
         case 'c':
             $sendTo = $chairmanEmail;
@@ -63,6 +66,7 @@ if ($result != null && $result['success'] == true) {
             break;
                 
     }
+    
     $message = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -363,7 +367,7 @@ ul.sidebar li a h1,ul.sidebar li a h2,ul.sidebar li a h3,ul.sidebar li a h4,ul.s
 </body>
 </html>';
     
-//$sendTo = $debugEmail; //Debug - Remove in Prod
+$sendTo = $debugEmail; //Debug - Remove in Prod
     
 $to = $sendTo;
 $subject = "New Email Message";
@@ -375,21 +379,13 @@ $headers  .= 'MIME-Version: 1.0' . "\r\n";
     mail($to, $subject, $message, $headers);
     echo http_response_code(200);
 
-    
-    
-    
-    
-    
-    
+
 }
 else {
     // Unauthorized - Captcha failed
     die(http_response_code(401)); 
     
 }
-
-
-
 
 
 
